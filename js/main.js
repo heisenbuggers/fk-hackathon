@@ -20,6 +20,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var startstop = $('#startstop');
   startstop.on('click', function(e) {
     navigator.getUserMedia(constraints, success, error);
+    startstop.data('status', 'running');
     // if(startstop.data('status') === 'running') {
     //   startstop.data('status', 'stopped');
     //   startstop.html('Start');
