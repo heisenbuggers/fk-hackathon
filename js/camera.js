@@ -23,11 +23,7 @@ function captureImage(){
 navigator.getUserMedia(constraints, success, error);
 
 function success(stream){
-    if (video.mozSrcObject !== undefined) {
-        video.mozSrcObject = stream;
-    } else {
-        video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
-    }
+    video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
     video.play();
 }
 

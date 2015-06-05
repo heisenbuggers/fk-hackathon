@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
       chartContext.series[0].addPoint(o.z);
 
   	if(o.z > 0 && o.z < 0.3 && startstop.data('status') === 'running'){
-  		// captureImage();
+  		captureImage();
   	}
 
     meter.innerHTML = "";
