@@ -4,8 +4,8 @@ window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 var constraints = {
   video: {
     mandatory: {
-      maxWidth: 350,
-      maxHeight: 300	
+      maxWidth: 600,
+      maxHeight: 400
     }
   }
 };
@@ -15,15 +15,22 @@ var canvas = document.getElementById('imgCanvas');
 var ctx = canvas.getContext('2d');
 
 function captureImage(){
-  canvas.width = video.clientWidth;
-  canvas.height = video.clientHeight;
-  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  if (videoAvailable) {
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  };
 }
 
 navigator.getUserMedia(constraints, success, error);
 
 function success(stream){
-    video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+    videoAvailable = true;
+    if (video.mozSrcObject !== undefined) {
+        video.mozSrcObject = stream;
+    } else {
+        video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+    }
     video.play();
 }
 
