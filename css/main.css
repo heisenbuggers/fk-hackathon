@@ -4,5 +4,5 @@
 }
 
 #video{
-  visibility:hidden;
+  transform:translateX(-500px);
 }
