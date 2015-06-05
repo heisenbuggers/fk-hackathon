@@ -21,6 +21,8 @@
   "dependencies": {
     "gyronorm": "~2.0.1",
     "gyro.js": "~1.0.0",
-    "Chart.js": "~1.0.2"
+    "Chart.js": "~1.0.2",
+    "jquery": "~2.1.4",
+    "highcharts": "~4.1.5"
   }
 }
