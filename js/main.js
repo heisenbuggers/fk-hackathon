@@ -65,6 +65,7 @@ $(function() {
   		   captureImage();
   	}
 
+    meter.innerHTML = "";
     PRINTF(meter,'z',Math.abs(o.z));
     PRINTF(meter,'y',Math.abs(o.y));
     PRINTF(meter,'x',Math.abs(o.x));
