@@ -50,8 +50,28 @@ function startThing() {
   points = [];
 }
 
+function gotSources(sourceInfos) {
+  for (var i = 0; i !== sourceInfos.length; ++i) {
+    var sourceInfo = sourceInfos[i];
+    var option = document.createElement('option');
+    option.value = sourceInfo.id;
+    if (sourceInfo.kind === 'audio') {
+      option.text = sourceInfo.label || 'microphone ' +
+        (audioSelect.length + 1);
+      audioSelect.appendChild(option);
+    } else if (sourceInfo.kind === 'video') {
+      option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
+      videoSelect.appendChild(option);
+    } else {
+      console.log('Some other kind of source: ', sourceInfo);
+    }
+  }
+}
+
 $(function() {
   meter = document.getElementById('meter');
+  videoSelect = document.querySelector('select#videoSource');
+  videoSource = videoSelect.value;
 
   gyro.frequency = 1;
 
@@ -63,8 +83,19 @@ $(function() {
   canvas = document.getElementById('imgCanvas');
   ctx = canvas.getContext('2d');
 
+  if (typeof MediaStreamTrack === 'undefined' || typeof MediaStreamTrack.getSources === 'undefined') {
+    alert('This browser does not support MediaStreamTrack.\n\nTry Chrome.');
+  } else {
+    MediaStreamTrack.getSources(gotSources);
+  }
+
   setTimeout(function() {
-    navigator.getUserMedia({video: true}, getMediaSuccess, getMediaError);
+    navigator.getUserMedia({video: {
+        optional:[{
+          sourceId:videoSource
+        }]
+      }
+    }, getMediaSuccess, getMediaError);
   }, 10);
 
   startstop.on('click', function(e) {
