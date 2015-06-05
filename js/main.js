@@ -72,9 +72,9 @@ $(function() {
       if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5) {
   		  captureImage();
         meter.innerHTML = "";
-        PRINTF(meter,'z',Math.abs(o.z));
-        PRINTF(meter,'y',Math.abs(o.y));
-        PRINTF(meter,'x',Math.abs(o.x));
+        PRINTF(meter,'z', o.z);
+        PRINTF(meter,'y', o.y);
+        PRINTF(meter,'x', o.x);
         setTimeout(function() {
           stopThing();
         }, 100);
