@@ -58,9 +58,9 @@ window.addEventListener('DOMContentLoaded', function() {
       chartContext.series[0].addPoint(o.z);
 
   	if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5){
-      if(Math.abs(o.x)>5){
+      if(Math.abs(o.x)>10){
       }
-      else if( Math.abs(o.y)>5){
+      else if( Math.abs(o.y)>10){
       }
       else{
   		   captureImage();
