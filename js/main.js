@@ -23,11 +23,11 @@ window.addEventListener('DOMContentLoaded', function() {
   startstop.on('click', function(e) {
     if(startstop.data('status') === 'running') {
       startstop.data('status', 'stopped');
-      startstop.html('Stop');
+      startstop.html('Start');
     }
     else {
       startstop.data('status', 'running');
-      startstop.html('Start');
+      startstop.html('Stop');
     }
   });
 
