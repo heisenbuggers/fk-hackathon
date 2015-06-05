@@ -3,6 +3,8 @@ var MIN = function(a,b) { return a<b?a:b; };
 
 var PRINTF = function(o, msg, val) { o.innerHTML += msg + ' = ' + val.toString() + '<br/>'; };
 
+gyro.frequency = 10;
+
 window.addEventListener('DOMContentLoaded', function() {
   var meter = document.getElementById('meter');
   var zdiv = document.getElementById('zs');
