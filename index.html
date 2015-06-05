@@ -7,18 +7,17 @@
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <script src="bower_components/highcharts/highcharts.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/camera.js"></script>
 </head>
 <body>
   <div class="select">
     <label for="videosource"> Source </label>
     <select id="videosource"></select>
   </div>
+  <video id="video" autoplay="autoplay"></video>
   <canvas id="imgCanvas"></canvas>
   <button id="startstop" data-status="stopped">Start</button>
   <div id="timeline"></div>
   <div id="meter"></div>
-  <script src="js/camera.js"></script>
-  <video id="video"></video>
-
 </body>
 </html>

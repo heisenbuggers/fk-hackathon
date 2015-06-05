@@ -4,5 +4,6 @@
 }
 
 #video{
-  transform:translateX(-500px);
+  position: fixed;
+  transform:translateX(-5000px);
 }
