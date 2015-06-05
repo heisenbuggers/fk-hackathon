@@ -1,3 +1,8 @@
+// utils
+var MAX = function(a,b) { return a>b?a:b; };
+
+var PRINTF = function(o, msg, val) { o.innerHTML += msg + ' = ' + val.toString() + '<br/>'; };
+
 window.addEventListener('DOMContentLoaded', function() {
   var meter = document.getElementById('meter');
 
@@ -10,11 +15,23 @@ window.addEventListener('DOMContentLoaded', function() {
   		fallingDown = true;
   		console.log(o.alpha);
   	}
+  var max = { x: 0, y: 0, z: 0 };
+
+  gyro.startTracking(function(o) {
+
+    // find max
+    max.x = MAX(max.x, o.x);
+    max.y = MAX(max.y, o.y);
+    max.z = MAX(max.z, o.z);
 
     meter.innerHTML = "";
-    meter.innerHTML += 'alpha = ' + o.alpha + '<br/>';
-    meter.innerHTML += 'beta = ' + o.beta + '<br/>';
-    meter.innerHTML += 'gamma = ' + o.gamma + '<br/>';
-    meter.innerHTML += '(x,y,z) = ' + o.x + ' ' + o.y + ' ' + o.z;
+    PRINTF(meter, 'alpha', o.alpha);
+    PRINTF(meter, 'beta', o.beta);
+    PRINTF(meter, 'gamma', o.gamma);
+
+    PRINTF(meter, 'max x', max.x);
+    PRINTF(meter, 'max y', max.y);
+    PRINTF(meter, 'max z', max.z);
+
   });
 });
