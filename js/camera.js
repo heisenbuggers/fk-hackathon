@@ -22,8 +22,6 @@ function captureImage(){
   };
 }
 
-navigator.getUserMedia(constraints, success, error);
-
 function success(stream){
     videoAvailable = true;
     if (video.mozSrcObject !== undefined) {
