@@ -9,14 +9,18 @@ var PRINTF = function(o, msg, val) {
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 
-function success(stream){
+function getMediaSuccess(stream){
   videoAvailable = true;
   if (video.mozSrcObject !== undefined) {
       video.mozSrcObject = stream;
   } else {
       video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
   }
-  console.log(video.play());
+  video.play();
+}
+
+function getMediaError(err){
+	console.log('Error' + error);
 }
 
 function captureImage(){
@@ -25,10 +29,6 @@ function captureImage(){
     canvas.height = video.clientHeight;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   };
-}
-
-function error(err){
-	console.log('Error' + error);
 }
 
 var startstop;
@@ -58,7 +58,7 @@ $(function() {
   ctx = canvas.getContext('2d');
 
   setTimeout(function() {
-    navigator.getUserMedia({video: true}, success, error);
+    navigator.getUserMedia({video: true}, getMediaSuccess, getMediaError);
   }, 1000);
 
   startstop.on('click', function(e) {
@@ -71,16 +71,15 @@ $(function() {
     if(startstop.data('status') === 'running') {
       if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5) {
   		  captureImage();
+        meter.innerHTML = "";
+        PRINTF(meter,'z',Math.abs(o.z));
+        PRINTF(meter,'y',Math.abs(o.y));
+        PRINTF(meter,'x',Math.abs(o.x));
         setTimeout(function() {
           stopThing();
         }, 100);
       }
     }
-
-    // meter.innerHTML = "";
-    // PRINTF(meter,'z',Math.abs(o.z));
-    // PRINTF(meter,'y',Math.abs(o.y));
-    // PRINTF(meter,'x',Math.abs(o.x));
 
   });
 
