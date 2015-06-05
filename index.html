@@ -9,11 +9,16 @@
   <script src="js/main.js"></script>
 </head>
 <body>
-  <video id="video"></video>
+  <div class="select">
+    <label for="videosource"> Source </label>
+    <select id="videosource"></select>
+  </div>
   <canvas id="imgCanvas"></canvas>
   <button id="startstop" data-status="stopped">Start</button>
   <div id="timeline"></div>
   <div id="meter"></div>
   <script src="js/camera.js"></script>
+  <video id="video"></video>
+
 </body>
 </html>
