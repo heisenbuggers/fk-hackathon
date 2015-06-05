@@ -57,6 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (startstop.data('status') === 'running')
       chartContext.series[0].addPoint(o.z);
 
+    PRINTF(meter,'z',o.z);
   	if(o.z > 0 && o.z < 3){
   		captureImage();
   	}
