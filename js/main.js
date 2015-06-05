@@ -5,11 +5,13 @@ var PRINTF = function(o, msg, val) { o.innerHTML += msg + ' = ' + val.toString()
 
 window.addEventListener('DOMContentLoaded', function() {
   var meter = document.getElementById('meter');
+  var zdiv = document.getElementById('zs');
 
   var fallingDown = false;
 
   var max = { x: 0, y: 0, z: 0 };
   var min = { x: Infinity, y: Infinity, z: Infinity };
+  var zs = [];
 
   gyro.startTracking(function(o) {
 
@@ -27,6 +29,9 @@ window.addEventListener('DOMContentLoaded', function() {
     min.y = MIN(min.y, o.y);
     min.z = MIN(min.z, o.z);
 
+    zs.push(o.z);
+
+    if(o.z < 4) PRINTF(zdiv, 'z = ', o.z);
 
     meter.innerHTML = "";
     PRINTF(meter, 'alpha', o.alpha);
