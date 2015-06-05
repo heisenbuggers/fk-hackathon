@@ -19,6 +19,18 @@ window.addEventListener('DOMContentLoaded', function() {
   // var zs = [];
   var chartContext;
 
+  var startstop = $('#startstop');
+  startstop.on('click', function(e) {
+    if(startstop.data('status') === 'running') {
+      startstop.data('status', 'stopped');
+      startstop.html('Stop');
+    }
+    else {
+      startstop.data('status', 'running');
+      startstop.html('Start');
+    }
+  });
+
   $('#timeline').highcharts({
     chart: {
       zoomType: 'x',
@@ -47,7 +59,8 @@ window.addEventListener('DOMContentLoaded', function() {
     min.z = MIN(min.z, o.z);
 
     // zs.push(o.z);
-    chartContext.series[0].addPoint(o.z);
+    if (startstop.data('status') === 'running')
+      chartContext.series[0].addPoint(o.z);
 
     meter.innerHTML = "";
     PRINTF(meter, 'alpha', o.alpha);
