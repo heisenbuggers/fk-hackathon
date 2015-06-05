@@ -31,13 +31,26 @@ function error(err){
 	console.log('Error' + error);
 }
 
+var startstop;
+var chartContext;
+var video, canvas, ctx;
+
+function stopThing() {
+  startstop.data('status', 'stopped');
+  startstop.html('Start');
+}
+function startThing() {
+  startstop.data('status', 'running');
+  startstop.html('Stop');
+}
+
 $(function() {
   var meter = document.getElementById('meter');
-  var chartContext;
 
   gyro.frequency = 1;
 
-  var startstop = $('#startstop');
+  startstop = $('#startstop');
+
   var count = 1;
 
   video = document.getElementById('video');
@@ -49,14 +62,8 @@ $(function() {
   }, 1000);
 
   startstop.on('click', function(e) {
-    if(startstop.data('status') === 'running') {
-      startstop.data('status', 'stopped');
-      startstop.html('Start');
-    }
-    else {
-      startstop.data('status', 'running');
-      startstop.html('Stop');
-    }
+    if(startstop.data('status') === 'running') stopThing();
+    else startThing();
   });
 
   gyro.startTracking(function(o) {
@@ -64,6 +71,9 @@ $(function() {
     if(startstop.data('status') === 'running') {
       if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5) {
   		  captureImage();
+        setTimeout(function() {
+          stopThing();
+        }, 100);
       }
     }
 
