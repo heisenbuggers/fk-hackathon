@@ -4,7 +4,7 @@ window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
 var constraints = {
   video: {
     mandatory: {
-      maxWidth: 300,
+      maxWidth: 350,
       maxHeight: 300	
     }
   }
