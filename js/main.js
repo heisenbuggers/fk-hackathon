@@ -1,4 +1,3 @@
-// utils
 var MAX = function(a,b) { return a>b?a:b; };
 
 var PRINTF = function(o, msg, val) { o.innerHTML += msg + ' = ' + val.toString() + '<br/>'; };
@@ -8,16 +7,14 @@ window.addEventListener('DOMContentLoaded', function() {
 
   var fallingDown = false;
 
-  gyro.startTracking(function(o) {
-
-
-  	if(o.alpha && o.alpha > 180){
-  		fallingDown = true;
-  		console.log(o.alpha);
-  	}
   var max = { x: 0, y: 0, z: 0 };
 
   gyro.startTracking(function(o) {
+
+    if(o.alpha && o.alpha > 180){
+      fallingDown = true;
+      console.log(o.alpha);
+    }
 
     // find max
     max.x = MAX(max.x, o.x);
