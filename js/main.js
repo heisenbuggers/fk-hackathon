@@ -6,7 +6,7 @@ var PRINTF = function(o, msg, val) {
   o.innerHTML += msg + ' = ' + val.toString() + '<br/>';
 };
 
-gyro.frequency = 10;
+gyro.frequency = 5;
 
 window.addEventListener('DOMContentLoaded', function() {
   var meter = document.getElementById('meter');
