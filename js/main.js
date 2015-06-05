@@ -41,38 +41,38 @@ window.addEventListener('DOMContentLoaded', function() {
     }]
   });
 
-  gyro.startTracking(function(o) {
+  // gyro.startTracking(function(o) {
 
-    // find max
-    max.x = MAX(max.x, o.x);
-    max.y = MAX(max.y, o.y);
-    max.z = MAX(max.z, o.z);
+  //   // find max
+  //   max.x = MAX(max.x, o.x);
+  //   max.y = MAX(max.y, o.y);
+  //   max.z = MAX(max.z, o.z);
 
-    min.x = MIN(min.x, o.x);
-    min.y = MIN(min.y, o.y);
-    min.z = MIN(min.z, o.z);
+  //   min.x = MIN(min.x, o.x);
+  //   min.y = MIN(min.y, o.y);
+  //   min.z = MIN(min.z, o.z);
 
-    // zs.push(o.z);
-    if (startstop.data('status') === 'running')
-      chartContext.series[0].addPoint(o.z);
+  //   // zs.push(o.z);
+  //   if (startstop.data('status') === 'running')
+  //     chartContext.series[0].addPoint(o.z);
 
-  	if(o.z > 0 && o.z < 1 && startstop.data('status') === 'running'){
-  		captureImage();
-  	}
+  // 	if(o.z > 0 && o.z < 1 && startstop.data('status') === 'running'){
+  // 		captureImage();
+  // 	}
 
-    meter.innerHTML = "";
-    // PRINTF(meter, 'alpha', o.alpha);
-    // PRINTF(meter, 'beta', o.beta);
-    // PRINTF(meter, 'gamma', o.gamma);
+  //   meter.innerHTML = "";
+  //   // PRINTF(meter, 'alpha', o.alpha);
+  //   // PRINTF(meter, 'beta', o.beta);
+  //   // PRINTF(meter, 'gamma', o.gamma);
 
-    // PRINTF(meter, 'max x', max.x);
-    // PRINTF(meter, 'max y', max.y);
-    // PRINTF(meter, 'max z', max.z);
+  //   // PRINTF(meter, 'max x', max.x);
+  //   // PRINTF(meter, 'max y', max.y);
+  //   // PRINTF(meter, 'max z', max.z);
 
-    // PRINTF(meter, 'min x', min.x);
-    // PRINTF(meter, 'min y', min.y);
-    // PRINTF(meter, 'min z', min.z);
+  //   // PRINTF(meter, 'min x', min.x);
+  //   // PRINTF(meter, 'min y', min.y);
+  //   // PRINTF(meter, 'min z', min.z);
 
-  });
+  // });
 
 });
