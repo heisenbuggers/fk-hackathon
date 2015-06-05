@@ -1,7 +1,10 @@
 var MAX = function(a,b) { return a>b?a:b; };
 var MIN = function(a,b) { return a<b?a:b; };
 
-var PRINTF = function(o, msg, val) { o.innerHTML += msg + ' = ' + val.toString() + '<br/>'; };
+var PRINTF = function(o, msg, val) {
+  if(val)
+  o.innerHTML += msg + ' = ' + val.toString() + '<br/>';
+};
 
 gyro.frequency = 10;
 
@@ -13,7 +16,19 @@ window.addEventListener('DOMContentLoaded', function() {
 
   var max = { x: 0, y: 0, z: 0 };
   var min = { x: Infinity, y: Infinity, z: Infinity };
-  var zs = [];
+  // var zs = [];
+  var chartContext;
+
+  $('#timeline').highcharts({
+    chart: {
+      zoomType: 'x',
+      events: { load: function() { chartContext = this; } }
+    },
+    series: [{
+      type: 'area',
+      data: [0,0,0]
+    }]
+  });
 
   gyro.startTracking(function(o) {
 
@@ -31,9 +46,8 @@ window.addEventListener('DOMContentLoaded', function() {
     min.y = MIN(min.y, o.y);
     min.z = MIN(min.z, o.z);
 
-    zs.push(o.z);
-
-    if(o.z > 9) PRINTF(zdiv, 'z = ', o.z);
+    // zs.push(o.z);
+    chartContext.series[0].addPoint(o.z);
 
     meter.innerHTML = "";
     PRINTF(meter, 'alpha', o.alpha);
@@ -49,4 +63,5 @@ window.addEventListener('DOMContentLoaded', function() {
     PRINTF(meter, 'min z', min.z);
 
   });
+
 });
