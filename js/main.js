@@ -76,6 +76,7 @@ window.addEventListener('DOMContentLoaded', function() {
     // PRINTF(meter, 'min x', min.x);
     // PRINTF(meter, 'min y', min.y);
     // PRINTF(meter, 'min z', min.z);
+    PRINTF(meter,'z',o.z);
 
   });
 
