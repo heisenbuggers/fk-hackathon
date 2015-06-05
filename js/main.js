@@ -20,27 +20,26 @@ window.addEventListener('DOMContentLoaded', function() {
   var startstop = $('#startstop');
   startstop.on('click', function(e) {
     navigator.getUserMedia(constraints, success, error);
-    startstop.data('status', 'running');
-    // if(startstop.data('status') === 'running') {
-    //   startstop.data('status', 'stopped');
-    //   startstop.html('Start');
-    // }
-    // else {
-    //   startstop.data('status', 'running');
-    //   startstop.html('Stop');
-    // }
+    if(startstop.data('status') === 'running') {
+      startstop.data('status', 'stopped');
+      startstop.html('Start');
+    }
+    else {
+      startstop.data('status', 'running');
+      startstop.html('Stop');
+    }
   });
 
-  // $('#timeline').highcharts({
-  //   chart: {
-  //     zoomType: 'x',
-  //     events: { load: function() { chartContext = this; } }
-  //   },
-  //   series: [{
-  //     type: 'area',
-  //     data: [0,0,0]
-  //   }]
-  // });
+  $('#timeline').highcharts({
+    chart: {
+      zoomType: 'x',
+      events: { load: function() { chartContext = this; } }
+    },
+    series: [{
+      type: 'area',
+      data: [0,0,0]
+    }]
+  });
 
   gyro.startTracking(function(o) {
 
