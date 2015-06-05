@@ -9,37 +9,77 @@ var PRINTF = function(o, msg, val) {
 gyro.frequency = 100;
 
 window.addEventListener('DOMContentLoaded', function() {
-  var meter = document.getElementById('meter');
-  var zdiv = document.getElementById('zs');
+  // var meter = document.getElementById('meter');
+  // var zdiv = document.getElementById('zs');
 
 
-  var max = { x: 0, y: 0, z: 0 };
-  var min = { x: Infinity, y: Infinity, z: Infinity };
-  // var zs = [];
-  var chartContext;
+  // var max = { x: 0, y: 0, z: 0 };
+  // var min = { x: Infinity, y: Infinity, z: Infinity };
+  // // var zs = [];
+  // var chartContext;
 
-  var startstop = $('#startstop');
-  startstop.on('click', function(e) {
-    if(startstop.data('status') === 'running') {
-      startstop.data('status', 'stopped');
-      startstop.html('Start');
+  // var startstop = $('#startstop');
+  // startstop.on('click', function(e) {
+  //   if(startstop.data('status') === 'running') {
+  //     startstop.data('status', 'stopped');
+  //     startstop.html('Start');
+  //   }
+  //   else {
+  //     startstop.data('status', 'running');
+  //     startstop.html('Stop');
+  //   }
+  // });
+
+  // $('#timeline').highcharts({
+  //   chart: {
+  //     zoomType: 'x',
+  //     events: { load: function() { chartContext = this; } }
+  //   },
+  //   series: [{
+  //     type: 'area',
+  //     data: [0,0,0]
+  //   }]
+  // });
+
+  navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+  window.URL = window.URL || window.webkitURL || window.mozURL || window.msURL;
+
+	var constraints = {
+	  video: {
+	    mandatory: {
+	      maxWidth: 600,
+	      maxHeight: 400
+	    }
+	  }
+	};
+
+var video = document.getElementById('video');
+var canvas = document.getElementById('imgCanvas');
+var ctx = canvas.getContext('2d');
+
+function captureImage(){
+  if (videoAvailable) {
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  };
+}
+
+navigator.getUserMedia(constraints, success, error);
+
+function success(stream){
+    videoAvailable = true;
+    if (video.mozSrcObject !== undefined) {
+        video.mozSrcObject = stream;
+    } else {
+        video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
     }
-    else {
-      startstop.data('status', 'running');
-      startstop.html('Stop');
-    }
-  });
+    video.play();
+}
 
-  $('#timeline').highcharts({
-    chart: {
-      zoomType: 'x',
-      events: { load: function() { chartContext = this; } }
-    },
-    series: [{
-      type: 'area',
-      data: [0,0,0]
-    }]
-  });
+function error(err){
+	console.log('Error' + error);
+}
 
   // gyro.startTracking(function(o) {
 
