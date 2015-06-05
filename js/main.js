@@ -18,8 +18,12 @@ window.addEventListener('DOMContentLoaded', function() {
   var chartContext;
 
   var startstop = $('#startstop');
+  var count = 1;
   startstop.on('click', function(e) {
-    navigator.getUserMedia(constraints, success, error);
+    if(count > 1){
+      count++;
+      navigator.getUserMedia(constraints, success, error);
+    }
     if(startstop.data('status') === 'running') {
       startstop.data('status', 'stopped');
       startstop.html('Start');
