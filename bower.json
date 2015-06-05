@@ -1,0 +1,25 @@
+{
+  "name": "throw-to-selfie",
+  "version": "0.0.1",
+  "homepage": "https://github.com/heisenbuggers/throw-to-selfie",
+  "authors": [
+    "Boopathi Rajaa <me@boopathi.in>"
+  ],
+  "description": "Throw to selfie",
+  "main": "js/main.js",
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "gyronorm": "~2.0.1",
+    "gyro.js": "~1.0.0"
+  }
+}
