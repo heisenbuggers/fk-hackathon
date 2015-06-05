@@ -2,3 +2,7 @@
   padding: 20px;
   font-size: 30px;
 }
+
+#video{
+  visibility:hidden;
+}
