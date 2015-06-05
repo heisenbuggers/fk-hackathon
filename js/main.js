@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var fallingDown = false;
 
   var max = { x: 0, y: 0, z: 0 };
-  var min = { x: 0, y: 0, z: 0 };
+  var min = { x: Infinity, y: Infinity, z: Infinity };
 
   gyro.startTracking(function(o) {
 
