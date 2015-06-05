@@ -56,22 +56,22 @@ window.addEventListener('DOMContentLoaded', function() {
     if (startstop.data('status') === 'running')
       chartContext.series[0].addPoint(o.z);
 
-  	if(o.z > 0 && o.z < 0.3){
+  	if(o.z > 0 && o.z < 0.3 && startstop.data('status') === 'running'){
   		captureImage();
   	}
 
     meter.innerHTML = "";
-    PRINTF(meter, 'alpha', o.alpha);
-    PRINTF(meter, 'beta', o.beta);
-    PRINTF(meter, 'gamma', o.gamma);
+    // PRINTF(meter, 'alpha', o.alpha);
+    // PRINTF(meter, 'beta', o.beta);
+    // PRINTF(meter, 'gamma', o.gamma);
 
-    PRINTF(meter, 'max x', max.x);
-    PRINTF(meter, 'max y', max.y);
-    PRINTF(meter, 'max z', max.z);
+    // PRINTF(meter, 'max x', max.x);
+    // PRINTF(meter, 'max y', max.y);
+    // PRINTF(meter, 'max z', max.z);
 
-    PRINTF(meter, 'min x', min.x);
-    PRINTF(meter, 'min y', min.y);
-    PRINTF(meter, 'min z', min.z);
+    // PRINTF(meter, 'min x', min.x);
+    // PRINTF(meter, 'min y', min.y);
+    // PRINTF(meter, 'min z', min.z);
 
   });
 
