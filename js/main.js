@@ -57,8 +57,14 @@ window.addEventListener('DOMContentLoaded', function() {
     if (startstop.data('status') === 'running')
       chartContext.series[0].addPoint(o.z);
 
-  	if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5 && Math.abs(o.x) > 0 && Math.abs(o.x)<1.5){
-  		captureImage();
+  	if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5){
+      if( Math.abs(o.x) > 0 && Math.abs(o.x)<1.5){
+      }
+      else if(Math.abs(o.y) > 0 && Math.abs(o.y)<1.5){
+      }
+      else{
+  		   captureImage();
+      }
   	}
 
     meter.innerHTML = "";
