@@ -38,7 +38,7 @@ window.addEventListener('DOMContentLoaded', function() {
     },
     series: [{
       type: 'area',
-      data: [0,0,0]
+      data: [0]
     }]
   });
 
