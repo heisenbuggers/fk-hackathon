@@ -57,7 +57,7 @@ window.addEventListener('DOMContentLoaded', function() {
     if (startstop.data('status') === 'running')
       chartContext.series[0].addPoint(o.z);
 
-  	if(o.z > 0 && o.z < 1 && startstop.data('status') === 'running'){
+  	if(o.z > 0 && o.z < 1){
   		captureImage();
   	}
 
