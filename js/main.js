@@ -19,7 +19,7 @@ function getMediaSuccess(stream){
 }
 
 function getMediaError(err){
-	console.log('Error' + error);
+	console.log('Error' + err);
 }
 
 function captureImage(){
@@ -33,6 +33,7 @@ function captureImage(){
 var startstop;
 var chartContext;
 var meter;
+var videoSelect;
 var video, canvas, ctx;
 var points = [];
 
@@ -49,28 +50,30 @@ function startThing() {
   startstop.html('Stop');
   points = [];
 }
+function getCamera() {
+  navigator.getUserMedia({video: {
+      optional:[{
+        sourceId: $("#videoSource").val()
+      }]
+    }
+  }, getMediaSuccess, getMediaError);
+}
 
 function gotSources(sourceInfos) {
   for (var i = 0; i !== sourceInfos.length; ++i) {
     var sourceInfo = sourceInfos[i];
     var option = document.createElement('option');
     option.value = sourceInfo.id;
-    if (sourceInfo.kind === 'audio') {
-      option.text = sourceInfo.label || 'microphone ' +
-        (audioSelect.length + 1);
-      audioSelect.appendChild(option);
-    } else if (sourceInfo.kind === 'video') {
-      option.text = sourceInfo.label || 'camera ' + (videoSelect.length + 1);
-      videoSelect.appendChild(option);
-    } else {
-      console.log('Some other kind of source: ', sourceInfo);
+    if (sourceInfo.kind === 'video') {
+      option.text = sourceInfo.label || 'camera ' + sourceInfo.id.substr(0, 5);
+      videoSelect.append(option);
     }
   }
 }
 
 $(function() {
   meter = document.getElementById('meter');
-  videoSelect = document.querySelector('select#videoSource');
+  videoSelect = $('#videoSource');
   videoSource = videoSelect.value;
 
   gyro.frequency = 1;
@@ -89,14 +92,8 @@ $(function() {
     MediaStreamTrack.getSources(gotSources);
   }
 
-  setTimeout(function() {
-    navigator.getUserMedia({video: {
-        optional:[{
-          sourceId:videoSource
-        }]
-      }
-    }, getMediaSuccess, getMediaError);
-  }, 10);
+  setTimeout(getCamera, 10);
+  $(videoSelect).on('change', getCamera);
 
   startstop.on('click', function(e) {
     if(startstop.data('status') === 'running') stopThing();
