@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', function() {
       chartContext.series[0].addPoint(o.z);
 
     PRINTF(meter,'z',o.z);
-  	if(o.z > 0 && o.z < 1.5){
+  	if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5){
   		captureImage();
   	}
 
