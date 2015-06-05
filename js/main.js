@@ -20,7 +20,7 @@ window.addEventListener('DOMContentLoaded', function() {
   var startstop = $('#startstop');
   var count = 1;
   startstop.on('click', function(e) {
-    if(count > 1){
+    if(count === 1){
       count++;
       navigator.getUserMedia(constraints, success, error);
     }
