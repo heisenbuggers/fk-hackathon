@@ -57,7 +57,6 @@ window.addEventListener('DOMContentLoaded', function() {
     if (startstop.data('status') === 'running')
       chartContext.series[0].addPoint(o.z);
 
-    PRINTF(meter,'z',o.z);
   	if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5){
   		captureImage();
   	}
@@ -75,6 +74,10 @@ window.addEventListener('DOMContentLoaded', function() {
     // PRINTF(meter, 'min y', min.y);
     // PRINTF(meter, 'min z', min.z);
     PRINTF(meter,'z',Math.abs(o.z));
+    PRINTF(meter,'y',Math.abs(o.y));
+    PRINTF(meter,'x',Math.abs(o.x));
+
+
 
   });
 
