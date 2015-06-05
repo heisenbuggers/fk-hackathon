@@ -2,8 +2,7 @@ var MAX = function(a,b) { return a>b?a:b; };
 var MIN = function(a,b) { return a<b?a:b; };
 
 var PRINTF = function(o, msg, val) {
-  if(val)
-  o.innerHTML += msg + ' = ' + val.toString() + '<br/>';
+  o.innerHTML += msg + ' = ' + val + '<br/>';
 };
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
@@ -25,27 +24,34 @@ function getMediaError(err){
 
 function captureImage(){
   if (videoAvailable) {
-    canvas.width = video.clientWidth;
-    canvas.height = video.clientHeight;
+    canvas.width = 360;
+    canvas.height = 200;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
   };
 }
 
 var startstop;
 var chartContext;
+var meter;
 var video, canvas, ctx;
+var points = [];
+
+var timeOfTravel = 0;
 
 function stopThing() {
   startstop.data('status', 'stopped');
   startstop.html('Start');
+  PRINTF(meter, 'points', points.join(', '));
+  PRINTF(meter, 'time of travel', timeOfTravel);
 }
 function startThing() {
   startstop.data('status', 'running');
   startstop.html('Stop');
+  points = [];
 }
 
 $(function() {
-  var meter = document.getElementById('meter');
+  meter = document.getElementById('meter');
 
   gyro.frequency = 1;
 
@@ -59,28 +65,53 @@ $(function() {
 
   setTimeout(function() {
     navigator.getUserMedia({video: true}, getMediaSuccess, getMediaError);
-  }, 1000);
+  }, 10);
 
   startstop.on('click', function(e) {
     if(startstop.data('status') === 'running') stopThing();
-    else startThing();
+    else {
+      startThing();
+    }
   });
 
-  gyro.startTracking(function(o) {
+  window.addEventListener('devicemotion', function(event) {
+    var o = event.accelerationIncludingGravity;
+    o.z = o.z.toFixed(3);
+    var startTime;
 
     if(startstop.data('status') === 'running') {
-      if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5) {
-  		  captureImage();
-        meter.innerHTML = "";
-        PRINTF(meter,'z', o.z);
-        PRINTF(meter,'y', o.y);
-        PRINTF(meter,'x', o.x);
-        setTimeout(function() {
-          stopThing();
-        }, 100);
+
+      points.push(o.z);
+      var l = points.length;
+      var isCapture = false;
+      if (l > 6) {
+        var lastValue = Math.abs(points[l-1]);
+        for(var i=l-2;i>l-7;i--) {
+          isCapture = lastValue === Math.abs(points[i]);
+        }
       }
+
+      if(Math.abs(o.z) < 1) if(!startTime) startTime = Date.now();
+      else timeOfTravel = Date.now() - startTime;
+
+      // if(Math.abs(o.z) < 2) {
+      if(isCapture && o.z > 15) {
+  		  captureImage();
+        stopThing();
+        PRINTF(meter, 'Capture point', count++);
+        PRINTF(meter, 'z', o.z);
+        PRINTF(meter, 'y', o.y);
+        PRINTF(meter, 'x', o.x);
+      }
+
+    } else {
+      timeOfTravel = Date.now() - startTime;
     }
 
   });
+
+  // gyro.startTracking(function(o) {
+  //
+  // });
 
 });
