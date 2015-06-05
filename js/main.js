@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', function() {
 
     zs.push(o.z);
 
-    if(o.z < 4) PRINTF(zdiv, 'z = ', o.z);
+    if(o.z > 9) PRINTF(zdiv, 'z = ', o.z);
 
     meter.innerHTML = "";
     PRINTF(meter, 'alpha', o.alpha);
