@@ -61,14 +61,16 @@ $(function() {
 
   gyro.startTracking(function(o) {
 
-  	if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5){
-  		   captureImage();
-  	}
+    if(startstop.data('status') === 'running') {
+      if(Math.abs(o.z) > 0 && Math.abs(o.z) < 1.5) {
+  		  captureImage();
+      }
+    }
 
-    meter.innerHTML = "";
-    PRINTF(meter,'z',Math.abs(o.z));
-    PRINTF(meter,'y',Math.abs(o.y));
-    PRINTF(meter,'x',Math.abs(o.x));
+    // meter.innerHTML = "";
+    // PRINTF(meter,'z',Math.abs(o.z));
+    // PRINTF(meter,'y',Math.abs(o.y));
+    // PRINTF(meter,'x',Math.abs(o.x));
 
   });
 
