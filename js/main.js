@@ -12,7 +12,6 @@ window.addEventListener('DOMContentLoaded', function() {
   var meter = document.getElementById('meter');
   var zdiv = document.getElementById('zs');
 
-  var fallingDown = false;
 
   var max = { x: 0, y: 0, z: 0 };
   var min = { x: Infinity, y: Infinity, z: Infinity };
@@ -44,11 +43,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
   gyro.startTracking(function(o) {
 
-    if(o.alpha && o.alpha > 180){
-      fallingDown = true;
-      console.log(o.alpha);
-    }
-
     // find max
     max.x = MAX(max.x, o.x);
     max.y = MAX(max.y, o.y);
@@ -61,6 +55,10 @@ window.addEventListener('DOMContentLoaded', function() {
     // zs.push(o.z);
     if (startstop.data('status') === 'running')
       chartContext.series[0].addPoint(o.z);
+
+  	if(o.z > 0 && o.z < 0.3){
+  		captureImage();
+  	}
 
     meter.innerHTML = "";
     PRINTF(meter, 'alpha', o.alpha);

@@ -4,10 +4,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
   <link href="css/main.css" rel="stylesheet" />
   <script src="bower_components/gyro.js/js/gyro.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="http://code.highcharts.com/highcharts.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/camera.js"></script>
 </head>
 <body>
   <button id="startstop" data-status="stopped">Start</button>
@@ -15,5 +14,7 @@
   <div id="meter"></div>
   Z's = <div id="zs"></div>
   <video id="video"></video>
+  <canvas id="imgCanvas"></canvas>
+  <script src="js/camera.js"></script>
 </body>
 </html>
