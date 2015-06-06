@@ -42,8 +42,7 @@ var timeOfTravel = 0;
 function stopThing() {
   startstop.data('status', 'stopped');
   startstop.html('Start');
-  PRINTF(meter, 'points', points.join(', '));
-  PRINTF(meter, 'time of travel', timeOfTravel);
+  
 }
 function startThing() {
   startstop.data('status', 'running');
@@ -102,44 +101,45 @@ $(function() {
     }
   });
 
-  window.addEventListener('devicemotion', function(event) {
-    var o = event.accelerationIncludingGravity;
-    o.z = o.z.toFixed(3);
-    var startTime;
+  var isCapture = false;
+  var startTime;
+  var timeDiff = 0;
 
+
+  window.addEventListener('devicemotion', function(event) {
+    var e = event.accelerationIncludingGravity;
+    var o = {};
+    o.z = Math.sqrt(e.x*e.x + e.y*e.y + e.z*e.z);
+    
     if(startstop.data('status') === 'running') {
 
       points.push(o.z);
       var l = points.length;
-      var isCapture = false;
-      if (l > 6) {
-        var lastValue = Math.abs(points[l-1]);
-        for(var i=l-2;i>l-7;i--) {
-          isCapture = lastValue === Math.abs(points[i]);
+
+      if(!isCapture) {
+        if (l > 9) {
+          for(var i=l-1;i>l-9;i--) {
+            isCapture = points[i] > 20;
+          }
+        }
+      } else {
+        if(!startTime) {
+          if(Math.abs(o.z) < 3) startTime = Date.now();
+        } else {
+          console.log(startTime);
+            if(Math.abs(o.z) > 3) {
+            timeDiff = (Date.now() - startTime)/2000;
+            PRINTF(meter, 'Height', (4.9*timeDiff*timeDiff).toFixed(3));
+            startTime = undefined;
+            isCapture = false;
+            captureImage();
+          }
         }
       }
+      
 
-      if(Math.abs(o.z) < 1) if(!startTime) startTime = Date.now();
-      else timeOfTravel = Date.now() - startTime;
-
-      // if(Math.abs(o.z) < 2) {
-      if(isCapture && o.z > 15) {
-  		  captureImage();
-        stopThing();
-        PRINTF(meter, 'Capture point', count++);
-        PRINTF(meter, 'z', o.z);
-        PRINTF(meter, 'y', o.y);
-        PRINTF(meter, 'x', o.x);
-      }
-
-    } else {
-      timeOfTravel = Date.now() - startTime;
     }
+   
 
   });
-
-  // gyro.startTracking(function(o) {
-  //
-  // });
-
 });
